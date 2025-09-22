@@ -1,0 +1,276 @@
+{
+  "preguntes": [
+    {
+      "id": 1,
+      "pregunta": "Quina marca de refrescos utilitza el color vermell com a identitat principal?",
+      "respostes": [
+        { "id": 1, "resposta": "Coca-Cola", "correcta": true },
+        { "id": 2, "resposta": "Pepsi", "correcta": false },
+        { "id": 3, "resposta": "Fanta", "correcta": false },
+        { "id": 4, "resposta": "Sprite", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/c/cd/Coca-Cola_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pepsi_logo_2014.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/57/Fanta_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/7/7a/Sprite_logo.svg"
+      ]
+    },
+    {
+      "id": 2,
+      "pregunta": "Quina marca de tecnologia té una poma mossegada com a logotip?",
+      "respostes": [
+        { "id": 1, "resposta": "Huawei", "correcta": false },
+        { "id": 2, "resposta": "Sony", "correcta": false },
+        { "id": 3, "resposta": "Samsung", "correcta": false },
+        { "id": 4, "resposta": "Apple", "correcta": true }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/5/55/Huawei_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/21/Sony_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+      ]
+    },
+    {
+      "id": 3,
+      "pregunta": "Quina marca de menjar ràpid té un pallasso com a mascota?",
+      "respostes": [
+        { "id": 1, "resposta": "McDonald's", "correcta": true },
+        { "id": 2, "resposta": "Subway", "correcta": false },
+        { "id": 3, "resposta": "Burger King", "correcta": false },
+        { "id": 4, "resposta": "KFC", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/4/4f/McDonald's_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/44/Subway_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/cc/Burger_King_2020.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/b/bf/KFC_logo.svg"
+      ]
+    },
+    {
+      "id": 4,
+      "pregunta": "Quina marca esportiva utilitza el lema 'Just Do It'?",
+      "respostes": [
+        { "id": 1, "resposta": "Adidas", "correcta": false },
+        { "id": 2, "resposta": "Nike", "correcta": true },
+        { "id": 3, "resposta": "Reebok", "correcta": false },
+        { "id": 4, "resposta": "Puma", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/53/Reebok_2019_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/fd/Puma_logo.svg"
+      ]
+    },
+    {
+      "id": 5,
+      "pregunta": "Quina marca de joguines és famosa pels seus blocs de construcció?",
+      "respostes": [
+        { "id": 1, "resposta": "Playmobil", "correcta": false },
+        { "id": 2, "resposta": "LEGO", "correcta": true },
+        { "id": 3, "resposta": "Mattel", "correcta": false },
+        { "id": 4, "resposta": "Hasbro", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/4/4b/Playmobil_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/99/Mattel-brand.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/1/19/Hasbro_logo.svg"
+      ]
+    },
+    {
+      "id": 6,
+      "pregunta": "Quina marca d’automòbils té quatre cèrcols entrellaçats com a logotip?",
+      "respostes": [
+        { "id": 1, "resposta": "Audi", "correcta": true },
+        { "id": 2, "resposta": "Mercedes-Benz", "correcta": false },
+        { "id": 3, "resposta": "Toyota", "correcta": false },
+        { "id": 4, "resposta": "BMW", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/6/6f/Audi_logo_detail.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
+      ]
+    },
+    {
+      "id": 7,
+      "pregunta": "Quina marca de cafè és coneguda pel logotip verd amb una sirena?",
+      "respostes": [
+        { "id": 1, "resposta": "Starbucks", "correcta": true },
+        { "id": 2, "resposta": "Costa Coffee", "correcta": false },
+        { "id": 3, "resposta": "Nespresso", "correcta": false },
+        { "id": 4, "resposta": "Dunkin'", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/sco/4/45/Starbucks_Corporation_Logo_2011.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d2/Costa_Coffee_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/04/Nespresso_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6a/Dunkin%27_logo.svg"
+      ]
+    },
+    {
+      "id": 8,
+      "pregunta": "Quina marca de programari és creadora del sistema operatiu Windows?",
+      "respostes": [
+        { "id": 1, "resposta": "IBM", "correcta": false },
+        { "id": 2, "resposta": "Oracle", "correcta": false },
+        { "id": 3, "resposta": "Microsoft", "correcta": true },
+        { "id": 4, "resposta": "Google", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+      ]
+    },
+    {
+      "id": 9,
+      "pregunta": "Quina marca d’automòbils és coneguda pel logotip d’un cavall rampant?",
+      "respostes": [
+        { "id": 1, "resposta": "Ferrari", "correcta": true },
+        { "id": 2, "resposta": "Maserati", "correcta": false },
+        { "id": 3, "resposta": "Porsche", "correcta": false },
+        { "id": 4, "resposta": "Lamborghini", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/en/6/6b/Ferrari-Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Maserati_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/1/19/Porsche_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d3/Lamborghini_Logo.svg"
+      ]
+    },
+    {
+      "id": 10,
+      "pregunta": "Quina marca de moda és famosa pel logotip amb dues lletres 'C' entrellaçades?",
+      "respostes": [
+        { "id": 1, "resposta": "Gucci", "correcta": false },
+        { "id": 2, "resposta": "Chanel", "correcta": true },
+        { "id": 3, "resposta": "Louis Vuitton", "correcta": false },
+        { "id": 4, "resposta": "Prada", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/c/c2/Gucci_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/8/89/Chanel_logo_interlocking_cs.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Louis_Vuitton_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4f/Prada-Logo.svg"
+      ]
+    },
+    {
+      "id": 11,
+      "pregunta": "Quina marca de videojocs té com a mascota oficial un erizo blau?",
+      "respostes": [
+        { "id": 1, "resposta": "Nintendo", "correcta": false },
+        { "id": 2, "resposta": "Sega", "correcta": true },
+        { "id": 3, "resposta": "Atari", "correcta": false },
+        { "id": 4, "resposta": "PlayStation", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/0/0d/Nintendo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6c/SEGA_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Atari_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/3/34/PlayStation_logo.svg"
+      ]
+    },
+    {
+      "id": 12,
+      "pregunta": "Quina marca d’aeronaus comercials és coneguda pel model 747?",
+      "respostes": [
+        { "id": 1, "resposta": "Airbus", "correcta": false },
+        { "id": 2, "resposta": "Embraer", "correcta": false },
+        { "id": 3, "resposta": "Boeing", "correcta": true },
+        { "id": 4, "resposta": "Bombardier", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/2/23/Airbus_logo_2017.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/1/1a/Embraer_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/4/4e/Boeing_full_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/3/30/Bombardier_logo.svg"
+      ]
+    },
+    {
+      "id": 13,
+      "pregunta": "Quina marca de rellotges és coneguda pel model 'Submariner'?",
+      "respostes": [
+        { "id": 1, "resposta": "TAG Heuer", "correcta": false },
+        { "id": 2, "resposta": "Omega", "correcta": false },
+        { "id": 3, "resposta": "Casio", "correcta": false },
+        { "id": 4, "resposta": "Rolex", "correcta": true }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/8/8e/TAG_Heuer_Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/8/8b/Omega_Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0d/Casio_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0e/Rolex_logo.svg"
+      ]
+    },
+    {
+      "id": 14,
+      "pregunta": "Quina marca de luxe és coneguda pel seu logotip en forma de cavall?",
+      "respostes": [
+        { "id": 1, "resposta": "Hermès", "correcta": true },
+        { "id": 2, "resposta": "Gucci", "correcta": false },
+        { "id": 3, "resposta": "Versace", "correcta": false },
+        { "id": 4, "resposta": "Balenciaga", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/6/6e/Hermes_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c2/Gucci_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a1/Versace_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Balenciaga_logo.svg"
+      ]
+    },
+    {
+      "id": 15,
+      "pregunta": "Quina marca de cervesa és originària d’Irlanda?",
+      "respostes": [
+        { "id": 1, "resposta": "Heineken", "correcta": false },
+        { "id": 2, "resposta": "Guinness", "correcta": true },
+        { "id": 3, "resposta": "Budweiser", "correcta": false },
+        { "id": 4, "resposta": "Corona", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/3/34/Heineken_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/59/Guinness_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/e/ed/Budweiser_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/7/71/Corona_logo.svg"
+      ]
+    },
+    {
+      "id": 16,
+      "pregunta": "Quina marca de motors de recerca domina el mercat mundial?",
+      "respostes": [
+        { "id": 1, "resposta": "Google", "correcta": true },
+        { "id": 2, "resposta": "Yahoo", "correcta": false },
+        { "id": 3, "resposta": "Bing", "correcta": false },
+        { "id": 4, "resposta": "DuckDuckGo", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/24/Yahoo%21_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/9/9f/Bing_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/52/DuckDuckGo_logo.svg"
+      ]
+    },
+    {
+      "id": 17,
+      "pregunta": "Quina marca de moda esportiva col·labora amb Kanye West?",
+      "respostes": [
+        { "id": 1, "resposta": "Nike", "correcta": false },
+        { "id": 2, "resposta": "Adidas", "correcta": true },
+        { "id": 3, "resposta": "Puma", "correcta": false },
+        { "id": 4, "resposta": "Under Armour", "correcta": false }
+      ],
+      "imatges": [
+        "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/fd/Puma_logo.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/04/Under_armour_logo.svg"
+      ]
+    }
+  ]
+}
