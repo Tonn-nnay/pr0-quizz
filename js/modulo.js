@@ -40,7 +40,6 @@ function renderTaulell(data){
     let partida = document.getElementById("partida");
     let htmlString="";
 
-    //revisar
     for (var k in data){
         if(data.hasOwnProperty(k)){
             htmlString+=`<h3> ${data[k].pregunta} </h3>`;
@@ -54,7 +53,7 @@ function renderTaulell(data){
 
 window.addEventListener("DOMContentLoaded", (event) => {
 
-    fetch ('http://localhost/pr0/functions/getPreguntes.php?quantitat=10')
+    fetch ('functions/getPreguntes.php?quantitat=10')
         .then(response => response.json())
         .then(data => renderTaulell(data));
     
