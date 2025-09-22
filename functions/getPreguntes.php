@@ -5,6 +5,7 @@
     if(!isset($_GET['quantitat'])){
         echo "no s'ha rebut quantitat";
     } else { //:35
+        $_SESSION['quantitat'] = $_GET['quantitat']; 
 
 ////////////////////////////////////////////////////////////////////////////// Conseguir el json
 
