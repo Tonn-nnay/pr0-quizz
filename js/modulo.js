@@ -1,11 +1,17 @@
 let estatDeLaPartida = { 
     contadorPreguntes: 0, 
-    respostesUsuari: []
+    respostesUsuari: [],
+    botoRenderitzat: false
 }; 
 
 function actualitzarMarcador() {
     let marcador = document.getElementById("marcador");
     marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
+}
+
+function renderBotoSend(){
+    let contenidor = document.getElementById("partida");
+    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
 }
 
 function marcarRespuesta(pregunta, resposta) {
@@ -19,6 +25,10 @@ function marcarRespuesta(pregunta, resposta) {
     estatDeLaPartida.respostesUsuari[num] = resposta;
 
     actualitzarMarcador();
+    if (estatDeLaPartida.contadorPreguntes == 10 && estatDeLaPartida.botoRenderitzat == false){
+        renderBotoSend();
+        estatDeLaPartida.botoRenderitzat = true;
+    }
     console.log(estatDeLaPartida.respostesUsuari);
 }
 window.marcarRespuesta = marcarRespuesta;
