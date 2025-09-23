@@ -4,35 +4,6 @@ let estatDeLaPartida = {
     botoRenderitzat: false
 }; 
 
-function actualitzarMarcador() {
-    let marcador = document.getElementById("marcador");
-    marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
-}
-
-function renderBotoSend(){
-    let contenidor = document.getElementById("partida");
-    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
-}
-
-function marcarRespuesta(pregunta, resposta) {
-    console.log("Pregunta: " + pregunta + " / Resposta: " + resposta);
-    let num = pregunta - 1;
-    
-    if(estatDeLaPartida.respostesUsuari[num] == undefined){
-        estatDeLaPartida.contadorPreguntes ++;
-    }
-
-    estatDeLaPartida.respostesUsuari[num] = resposta;
-
-    actualitzarMarcador();
-    if (estatDeLaPartida.contadorPreguntes == 10 && estatDeLaPartida.botoRenderitzat == false){
-        renderBotoSend();
-        estatDeLaPartida.botoRenderitzat = true;
-    }
-    console.log(estatDeLaPartida.respostesUsuari);
-}
-window.marcarRespuesta = marcarRespuesta;
-
 function renderitzarMarcador(){
     let contador = estatDeLaPartida.contadorPreguntes;
     
@@ -68,3 +39,47 @@ window.addEventListener("DOMContentLoaded", (event) => {
         .then(data => renderTaulell(data));
     
 } );
+
+function enviarResposta() {
+  const url = "functions/finalitza.php"; 
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contadorPreguntes: estatDeLaPartida.contadorPreguntes,
+      respostesUsuari: estatDeLaPartida.respostesUsuari
+    })
+  })
+  .then(res => res.text())
+  .then(data => console.log("JSON ->", data));
+}
+
+function actualitzarMarcador() {
+    let marcador = document.getElementById("marcador");
+    marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
+}
+
+function renderBotoSend(){
+    let contenidor = document.getElementById("partida");
+    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
+}
+
+function marcarRespuesta(pregunta, resposta) {
+    console.log("Pregunta: " + pregunta + " / Resposta: " + resposta);
+    let num = pregunta - 1;
+    
+    if(estatDeLaPartida.respostesUsuari[num] == undefined){
+        estatDeLaPartida.contadorPreguntes ++;
+    }
+
+    estatDeLaPartida.respostesUsuari[num] = resposta;
+
+    actualitzarMarcador();
+    if (estatDeLaPartida.contadorPreguntes == 10 && estatDeLaPartida.botoRenderitzat == false){
+        renderBotoSend();
+        estatDeLaPartida.botoRenderitzat = true;
+    }
+    console.log(estatDeLaPartida.respostesUsuari);
+}
+window.marcarRespuesta = marcarRespuesta;
