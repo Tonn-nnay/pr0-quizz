@@ -25,11 +25,20 @@ function renderTaulell(data){
         if(data.hasOwnProperty(k)){
             htmlString+=`<h3> ${data[k].pregunta} </h3>`;
             for (let i = 0; i < data[k].respostes.length; i++){
-                htmlString+=`<button onclick="marcarRespuesta(${data[k].id+1},${i+1})"> ${data[k].respostes[i][1]}</button>`
+                htmlString+=`<button preg='${data[k].id+1}' resp='${i+1}' class='btn'> ${data[k].respostes[i][1]}</button>`
             }            
         }
     }
     partida.innerHTML = htmlString;
+
+    partida.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn')){
+            let valor_pregunta = e.target.getAttribute('preg')
+            let valor_resposta = e.target.getAttribute('resp')
+
+            marcarRespuesta(valor_pregunta, valor_resposta)
+        }
+    })
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
