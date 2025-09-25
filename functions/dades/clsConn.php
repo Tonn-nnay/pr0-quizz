@@ -15,25 +15,24 @@ class clsConn{
 
         function __destruct(){
             $conn->close();
-            echo "Connexió tancada.";
         }
 
-        function query_cud($sql){
+        public function query_cud($sql){
             if ($conn->query($sql) === TRUE){
-                return "Ordre executada!";
+                return TRUE;
             } else {
                 return "Error: " . $sql . "<br>" . $conn->error;
             }
         }
 
-        function query_read($sql){
+        public function query_r($sql){
             $data = $conn->query($sql);
             if(isset($data)){
                 $result = [];
                 while ($row = $data->fetch_assoc()) {
                     $result[] = $row;
                 }
-                echo $result;
+                return $result;
 
 /*
 WITH respuestas_limitadas AS (
