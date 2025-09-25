@@ -4,7 +4,7 @@
 
     if(!isset($_GET['quantitat'])){
         echo "no s'ha rebut quantitat";
-    } else { //:35
+    } else { //:50
         $_SESSION['quantitat'] = $_GET['quantitat']; 
 
 ////////////////////////////////////////////////////////////////////////////// Conseguir el json
@@ -13,7 +13,7 @@
 
         if ($json === false) {
             die('No ha cargado del json');
-        } else { //:34
+        } else { //:44
             $json_data = json_decode($json, true);
 
 ////////////////////////////////////////////////////////////////////////////// Creació d'array de respostes i de array preguntes, respostes
@@ -45,8 +45,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-            $return = json_encode($llistat_js);
-            echo $return;
+            echo json_encode($llistat_js);
         }     
     }
 
