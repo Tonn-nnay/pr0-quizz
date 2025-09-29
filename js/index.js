@@ -1,7 +1,34 @@
+/*
+Index:
+    Objectes
+    estatDeLaPartida :5 ~ Objecte que emmagatzema l'estat del joc. 
+        /Pendent: pujar localStorage
+    --------------------
+    Renders
+    renderitzarMarcador() ~ Funció que renderitza el marcador al començament de la partida 
+        /Pendent: renderitzar temps
+    renderTaulell(data) ~ Funció que utilitza un array de dades per renderitzar les preguntes 
+        /Pendent: actualitzar amb localStorage, separació de preguntes per divs ocults, botons de mostrar divs.
+
+        · AEL ('click') -> Truca a la funció marcarResposta() per enviar els atributs pregunta resposta
+    renderBotoSend() ~ Funció que renderitza el botó d'enviar respostes
+        /Pendent: canviar onclickbutton per AEL 
+    -------------------
+    Funcionalitats
+    AEL ('DOMContentLoaded') ~ Funció que fa fetch a getPreguntes.php per a rebre un json amb les preguntes
+    enviarResposta() ~ Funció que fa fetch a finalitza.php amb l'array de estatDeLaPartida.respostesUsuari i rep un json amb les respostes 
+    que eren correctes.
+    actualitzaMarcador() ~ Funció que actualitza el marcador.
+        /Pendent: Renderitzar temps
+    marcarRespuesta(pregunta, resposta) ~ Funció que actualitza l'array de estatDeLaPartida.respostesUsuari, usa la funció 
+    actualitzarMarcador() i després controla que el botó Send s'hagi renderitzat i en cas contrari, truca a renderBotoSend();
+*/
+
 let estatDeLaPartida = { 
     contadorPreguntes: 0, 
     respostesUsuari: [],
-    botoRenderitzat: false
+    botoRenderitzat: false,
+    temps: 0
 }; 
 
 function renderitzarMarcador(){
@@ -41,6 +68,11 @@ function renderTaulell(data){
     })
 }
 
+function renderBotoSend(){
+    let contenidor = document.getElementById("partida");
+    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
 
     fetch ('functions/getPreguntes.php?quantitat=10')
@@ -69,11 +101,6 @@ function actualitzarMarcador() {
     marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
 }
 
-function renderBotoSend(){
-    let contenidor = document.getElementById("partida");
-    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
-}
-
 function marcarRespuesta(pregunta, resposta) {
     console.log("Pregunta: " + pregunta + " / Resposta: " + resposta);
     let num = pregunta - 1;
@@ -92,3 +119,7 @@ function marcarRespuesta(pregunta, resposta) {
     console.log(estatDeLaPartida.respostesUsuari);
 }
 window.marcarRespuesta = marcarRespuesta;
+
+window.setInterval(function(){
+    estatDeLaPartida.temps ++;
+}, 1000);
