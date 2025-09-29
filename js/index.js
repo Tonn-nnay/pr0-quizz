@@ -1,30 +1,27 @@
 /*
 Index:
-    Objectes
+    Elements
+    partida ~ Agafa el div amb ID partida al html
     estatDeLaPartida :5 ~ Objecte que emmagatzema l'estat del joc. 
-        /Pendent: pujar localStorage
     --------------------
     Renders
     renderitzarMarcador() ~ Funció que renderitza el marcador al començament de la partida 
-        /Pendent: renderitzar temps
     renderTaulell(data) ~ Funció que utilitza un array de dades per renderitzar les preguntes 
-        /Pendent: actualitzar amb localStorage, separació de preguntes per divs ocults, botons de mostrar divs.
-
-        · AEL ('click') -> Truca a la funció marcarResposta() per enviar els atributs pregunta resposta
-    renderBotoSend() ~ Funció que renderitza el botó d'enviar respostes
-        /Pendent: canviar onclickbutton per AEL 
+        /Pendent: separació de preguntes per divs ocults, botons de mostrar divs.
     -------------------
-    Funcionalitats
+    AEL
     AEL ('DOMContentLoaded') ~ Funció que fa fetch a getPreguntes.php per a rebre un json amb les preguntes
-    enviarResposta() ~ Funció que fa fetch a finalitza.php amb l'array de estatDeLaPartida.respostesUsuari i rep un json amb les respostes 
-    que eren correctes.
+    AEL ('click')e -> Truca a la funció marcarResposta() per enviar els atributs pregunta resposta 
+    -------------------
+    Funcions
     actualitzaMarcador() ~ Funció que actualitza el marcador.
-        /Pendent: Renderitzar temps
     marcarRespuesta(pregunta, resposta) ~ Funció que actualitza l'array de estatDeLaPartida.respostesUsuari, usa la funció 
-    actualitzarMarcador() i després controla que el botó Send s'hagi renderitzat i en cas contrari, truca a renderBotoSend();
+    actualitzarMarcador() i després controla que el botó Send s'hagi renderitzat i en cas contrari, el renderitza;
 */
+let partida = document.getElementById("partida");
 
 let estatDeLaPartida = { 
+    preguntaActual: 0,
     contadorPreguntes: 0, 
     respostesUsuari: [],
     botoRenderitzat: false,
@@ -45,7 +42,6 @@ function renderTaulell(data){
 
     renderitzarMarcador();
 
-    let partida = document.getElementById("partida");
     let htmlString="";
 
     for (var k in data){
@@ -57,20 +53,6 @@ function renderTaulell(data){
         }
     }
     partida.innerHTML = htmlString;
-
-    partida.addEventListener('click', function(e) {
-        if (e.target.classList.contains('btn')){
-            let valor_pregunta = e.target.getAttribute('preg')
-            let valor_resposta = e.target.getAttribute('resp')
-
-            marcarRespuesta(valor_pregunta, valor_resposta)
-        }
-    })
-}
-
-function renderBotoSend(){
-    let contenidor = document.getElementById("partida");
-    contenidor.innerHTML += `<button onclick="enviarResposta()">Enviar resposta</button>`;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -81,24 +63,66 @@ window.addEventListener("DOMContentLoaded", (event) => {
     
 } );
 
-function enviarResposta() {
-  const url = "functions/finalitza.php"; 
+partida.addEventListener('click', function(e) {
+        if (e.target.id.contains('btnEnviar')){
+            const url = "functions/finalitza.php"; 
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                contadorPreguntes: estatDeLaPartida.contadorPreguntes,
+                respostesUsuari: estatDeLaPartida.respostesUsuari
+                })
+            })
+            .then(res => res.text())
+            .then(data => console.log("JSON ->", data));
+        } else if (e.target.id.contains('btnBorrar')){
+            localStorage.removeItem("partida");
+            estatDeLaPartida = {
+                preguntaActual: 0,
+                contadorPreguntes: 0,
+                respostesUsuari: [],
+                botoRenderitzat: false,
+                temps: 0
+            }
+            actualitzaMarcador();
+        } else if (e.target.classList.contains('btn')){
+            let valor_pregunta = e.target.getAttribute('preg')
+            let valor_resposta = e.target.getAttribute('resp')
 
-  fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contadorPreguntes: estatDeLaPartida.contadorPreguntes,
-      respostesUsuari: estatDeLaPartida.respostesUsuari
+            marcarRespuesta(valor_pregunta, valor_resposta)
+        }
     })
-  })
-  .then(res => res.text())
-  .then(data => console.log("JSON ->", data));
-}
 
 function actualitzarMarcador() {
     let marcador = document.getElementById("marcador");
     marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
+
+    //renderitza el botó de enviar
+    if (estatDeLaPartida.contadorPreguntes == 10 && estatDeLaPartida.botoRenderitzat == false){
+        partida.innerHTML += `<button id="btnEnviar" class="btn btn-danger">Enviar resposta</button>`;
+        estatDeLaPartida.botoRenderitzat = true;
+    }
+
+    if (estatDeLaPartida.contadorPreguntes == 1){
+        partida.innerHTML += `<button id="btnBorrar" class="btn btn-danger">Borrar partida</button>`
+    }
+
+    let seleccio = document.getElementsByClassName("seleccionada")
+    for (let k = seleccio.length - 1; k >= 0; k--) {
+        seleccio[k].classList.remove("seleccionada")
+    }
+
+    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++) {
+        let resposta = estatDeLaPartida.respostesUsuari[i]
+        if (resposta != undefined){
+            document.getElementById(`${i}_${resposta}`).classList.add("seleccionada")
+        } 
+    }
+
+    //emmagatzema en localStorage partida l'estatDeLaPartida
+    localStorage.setItem("partida", JSON.stringify(estatDeLaPartida))
+    console.log(estatDeLaPartida)
 }
 
 function marcarRespuesta(pregunta, resposta) {
@@ -112,10 +136,7 @@ function marcarRespuesta(pregunta, resposta) {
     estatDeLaPartida.respostesUsuari[num] = resposta;
 
     actualitzarMarcador();
-    if (estatDeLaPartida.contadorPreguntes == 10 && estatDeLaPartida.botoRenderitzat == false){
-        renderBotoSend();
-        estatDeLaPartida.botoRenderitzat = true;
-    }
+    
     console.log(estatDeLaPartida.respostesUsuari);
 }
 window.marcarRespuesta = marcarRespuesta;

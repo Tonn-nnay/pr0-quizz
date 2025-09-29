@@ -5,3 +5,7 @@ img {
 .hidden{
     display: none;
 }
+
+.seleccionada {
+    background-color: green;
+}
