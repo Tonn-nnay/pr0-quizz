@@ -1,20 +1,46 @@
 <?php
+    include_once('dades');
+    include_once('dades/clsConn.php');
     session_start();
     $_SESSION['respostes'] = array();
 
     if(!isset($_GET['quantitat'])){
         echo "no s'ha rebut quantitat";
-    } else { //:50
+    } else {
         $_SESSION['quantitat'] = $_GET['quantitat']; 
 
-////////////////////////////////////////////////////////////////////////////// Conseguir el json
+////////////////////////////////////////////////////////////////////////////// Conseguir el json /*canviar a query*/
 
-        $json = file_get_contents("../rsc/json/data.json");
-
-        if ($json === false) {
-            die('No ha cargado del json');
-        } else { //:44
-            $json_data = json_decode($json, true);
+        $conn = new clsConn($servername, $username, $password, $db);
+        $sql = `WITH respuestas_limitadas AS (
+                            SELECT 
+                                r.ID_pregunta,
+                                r.ID_resposta,
+                                r.Resposta,
+                                r.Nom,
+                                r.Correcte,
+                                ROW_NUMBER() OVER (PARTITION BY r.ID_pregunta ORDER BY r.ID_resposta) AS rn
+                            FROM respostes r
+                        )
+                        SELECT 
+                            p.ID_pregunta,
+                            p.Pregunta,
+                            JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                    'ID_resposta', rl.ID_resposta,
+                                    'Resposta', rl.Resposta,
+                                    'Nom', rl.Nom,
+                                    'Correcte', rl.Correcte
+                                )
+                            ) AS Respostes
+                        FROM preguntes p
+                        JOIN respuestas_limitadas rl 
+                            ON p.ID_pregunta = rl.ID_pregunta
+                        WHERE rl.rn <= 4
+                        GROUP BY p.ID_pregunta, p.Pregunta;'
+                        `;
+        $json_data = $conn->query_r($sql);
+        $conn->__destruct();
 
 ////////////////////////////////////////////////////////////////////////////// Creació d'array de respostes i de array preguntes, respostes
 
@@ -47,6 +73,4 @@
 
             echo json_encode($llistat_js);
         }     
-    }
-
 ?>

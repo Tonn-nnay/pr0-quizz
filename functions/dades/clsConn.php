@@ -33,7 +33,6 @@ class clsConn{
                     $result[] = $row;
                 }
                 return $result;
-
             }
         }
     }

@@ -70,7 +70,7 @@ function renderTaulell(data){
 
 function renderBotoSend(){
     let contenidor = document.getElementById("partida");
-    contenidor.innerHTML = `<button onclick="enviarResposta()">Enviar resposta</button>`;
+    contenidor.innerHTML += `<button onclick="enviarResposta()">Enviar resposta</button>`;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
