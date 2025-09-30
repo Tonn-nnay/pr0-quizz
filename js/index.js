@@ -7,7 +7,6 @@ Index:
     Renders
     renderitzarMarcador() ~ Funció que renderitza el marcador al començament de la partida 
     renderTaulell(data) ~ Funció que utilitza un array de dades per renderitzar les preguntes 
-        /Pendent: separació de preguntes per divs ocults, botons de mostrar divs.
     -------------------
     AEL
     AEL ('DOMContentLoaded') ~ Funció que fa fetch a getPreguntes.php per a rebre un json amb les preguntes
@@ -33,34 +32,35 @@ function renderitzarMarcador(){
     
     let marcador = document.getElementById("marcador");
     let htmlString = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
-
     marcador.innerHTML = htmlString;
 }
 
 function renderTaulell(data){
     console.log(data);
-
     renderitzarMarcador();
-
     let htmlString="";
 
     for (var k in data){
         if(data.hasOwnProperty(k)){
+            htmlString+=`<div class="divPregunta ${estatDeLaPartida.preguntaActual === document.getElementById(data[k].id)? "": "hidden"} id="${data[k].id}">`
+            htmlString+=`<div class="btnDevantEnrrere"> 
+                            <button id="btnEnrrere" class="btn" style:display ${estatDeLaPartida.preguntaActual === 0? "none" : "inline-block"}>Enrerre</button>
+                            <button id="btnEnrrere" class="btn" style:display ${estatDeLaPartida.preguntaActual === 10? "none" : "inline-block"}>Següent</button>
+                         </div>`
             htmlString+=`<h3> ${data[k].pregunta} </h3>`;
             for (let i = 0; i < data[k].respostes.length; i++){
                 htmlString+=`<button preg='${data[k].id+1}' resp='${i+1}' class='btn'> ${data[k].respostes[i][1]}</button>`
-            }            
+            } 
+            htmlString+=`</div>`           
         }
     }
     partida.innerHTML = htmlString;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-
     fetch ('functions/getPreguntes.php?quantitat=10')
         .then(response => response.json())
         .then(data => renderTaulell(data));
-    
 } );
 
 partida.addEventListener('click', function(e) {
@@ -86,10 +86,13 @@ partida.addEventListener('click', function(e) {
                 temps: 0
             }
             actualitzaMarcador();
+        } else if (e.target.classList.contains('btnDevant')){
+            estatDeLaPartida.preguntaActual ++;
+        } else if (e.target.classList.contains('btnEnrrere')) {
+            estatDeLaPartida.preguntaActual --;
         } else if (e.target.classList.contains('btn')){
             let valor_pregunta = e.target.getAttribute('preg')
             let valor_resposta = e.target.getAttribute('resp')
-
             marcarRespuesta(valor_pregunta, valor_resposta)
         }
     })
@@ -128,19 +131,15 @@ function actualitzarMarcador() {
 function marcarRespuesta(pregunta, resposta) {
     console.log("Pregunta: " + pregunta + " / Resposta: " + resposta);
     let num = pregunta - 1;
-    
     if(estatDeLaPartida.respostesUsuari[num] == undefined){
         estatDeLaPartida.contadorPreguntes ++;
     }
-
     estatDeLaPartida.respostesUsuari[num] = resposta;
-
     actualitzarMarcador();
-    
     console.log(estatDeLaPartida.respostesUsuari);
 }
 window.marcarRespuesta = marcarRespuesta;
 
-window.setInterval(function(){
+window.setInterval ( function() {
     estatDeLaPartida.temps ++;
-}, 1000);
+} , 1000);
