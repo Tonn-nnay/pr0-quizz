@@ -1,24 +1,21 @@
 <?php
 class clsConn{
     //hay errores pq VisualStudio no entiende que la variable $conn se define en el constructor
-        protected $conn;
+        public $conn;
 
         function __construct($_servername, $_username, $_password, $_db){
-            $conn = mysqli_connect($_servername, $_username, $_password, $_db);
-            
-            if (!$conn) {
+            $this->$conn = mysqli_connect($_servername, $_username, $_password, $_db);
+            if (!$this->$conn) {
                 die("Connection failed: " . mysqli_connect_error());
-            } else {
-               echo "Connexió oberta.";
             }
         }
 
-        function __destruct(){
-            $conn->close();
+        function free(){
+            $this->$conn->close();
         }
 
         public function query_cud($sql){
-            if ($conn->query($sql) === TRUE){
+            if ($this->$conn->query($sql) === TRUE){
                 return TRUE;
             } else {
                 return "Error: " . $sql . "<br>" . $conn->error;
@@ -26,7 +23,7 @@ class clsConn{
         }
 
         public function query_r($sql){
-            $data = $conn->query($sql);
+            $data = $this->$conn->query($sql);
             if(isset($data)){
                 $result = [];
                 while ($row = $data->fetch_assoc()) {
@@ -36,7 +33,4 @@ class clsConn{
             }
         }
     }
-/*
-
-*/
 ?>

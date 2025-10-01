@@ -1,7 +1,8 @@
 <?php
-    include_once('dades');
+    include_once('dades/dades.php');
     include_once('dades/clsConn.php');
     session_start();
+    $sql = '';
     $_SESSION['respostes'] = array();
 
     if(!isset($_GET['quantitat'])){
@@ -9,38 +10,12 @@
     } else {
         $_SESSION['quantitat'] = $_GET['quantitat']; 
 
-////////////////////////////////////////////////////////////////////////////// Conseguir el json /*canviar a query*/
+////////////////////////////////////////////////////////////////////////////// 
 
         $conn = new clsConn($servername, $username, $password, $db);
-        $sql = `WITH respuestas_limitadas AS (
-                            SELECT 
-                                r.ID_pregunta,
-                                r.ID_resposta,
-                                r.Resposta,
-                                r.Nom,
-                                r.Correcte,
-                                ROW_NUMBER() OVER (PARTITION BY r.ID_pregunta ORDER BY r.ID_resposta) AS rn
-                            FROM respostes r
-                        )
-                        SELECT 
-                            p.ID_pregunta,
-                            p.Pregunta,
-                            JSON_ARRAYAGG(
-                                JSON_OBJECT(
-                                    'ID_resposta', rl.ID_resposta,
-                                    'Resposta', rl.Resposta,
-                                    'Nom', rl.Nom,
-                                    'Correcte', rl.Correcte
-                                )
-                            ) AS Respostes
-                        FROM preguntes p
-                        JOIN respuestas_limitadas rl 
-                            ON p.ID_pregunta = rl.ID_pregunta
-                        WHERE rl.rn <= 4
-                        GROUP BY p.ID_pregunta, p.Pregunta;'
-                        `;
+        $sql = "SELECT p.ID_pregunta,p.Pregunta,JSON_ARRAYAGG(JSON_OBJECT('ID_resposta', rl.ID_resposta,'Resposta', rl.Resposta,'Nom', rl.Nom,'Correcte', rl.Correcte)) AS Respostes FROM preguntes p JOIN respuestas_limitadas rl ON p.ID_pregunta = rl.ID_pregunta WHERE rl.rn <= 4 GROUP BY p.ID_pregunta, p.Pregunta";
         $json_data = $conn->query_r($sql);
-        $conn->__destruct();
+        $conn->free();
 
 ////////////////////////////////////////////////////////////////////////////// Creació d'array de respostes i de array preguntes, respostes
 
