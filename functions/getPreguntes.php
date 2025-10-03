@@ -13,17 +13,17 @@
 ////////////////////////////////////////////////////////////////////////////// 
 
         $conn = new clsConn($servername, $username, $password, $db);
-        $sql = "SELECT p.ID_pregunta,p.Pregunta,JSON_ARRAYAGG(JSON_OBJECT('ID_resposta', rl.ID_resposta,'Resposta', rl.Resposta,'Nom', rl.Nom,'Correcte', rl.Correcte)) AS Respostes FROM preguntes p JOIN respuestas_limitadas rl ON p.ID_pregunta = rl.ID_pregunta WHERE rl.rn <= 4 GROUP BY p.ID_pregunta, p.Pregunta";
-        $json_data = $conn->query_r($sql);
+        $sql = "WITH respuestas_limitadas AS (SELECT r.ID_pregunta, r.ID_resposta, r.Resposta, r.Nom, r.Correcte, ROW_NUMBER() OVER (PARTITION BY r.ID_pregunta ORDER BY r.ID_resposta) AS rn FROM Respostes r) SELECT JSON_ARRAYAGG(JSON_OBJECT('ID_pregunta', p.ID_pregunta, 'Pregunta', p.Pregunta, 'Respostes', (SELECT JSON_ARRAYAGG(JSON_OBJECT('ID_resposta', rl2.ID_resposta, 'Resposta', rl2.Resposta, 'Nom', rl2.Nom, 'Correcte', rl2.Correcte)) FROM respuestas_limitadas rl2 WHERE rl2.ID_pregunta = p.ID_pregunta AND rl2.rn <= 4))) AS preguntas_json FROM Preguntes p;";        
+        $json_data = json_decode($conn->query_r($sql), 1);
         $conn->free();
 
 ////////////////////////////////////////////////////////////////////////////// Creació d'array de respostes i de array preguntes, respostes
 
-        $llistat_ids = array_rand($json_data['preguntes'], $_GET['quantitat']); 
+        $llistat_ids = array_rand($json_data, $_GET['quantitat']); 
         $llistat_js = array();
         $i = 0;
         
-        foreach ($json_data['preguntes'] as $index => $pregunta) { 
+        foreach ($json_data as $index => $pregunta) { 
             if (in_array($index, $llistat_ids)) { 
                 $value_id = $pregunta['id'];
                 $value_pregunta = $pregunta['pregunta'];

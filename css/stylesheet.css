@@ -6,6 +6,10 @@ img {
     display: none;
 }
 
+.shown{
+    display: inline-block;
+}
+
 .seleccionada {
     background-color: green;
 }

@@ -44,7 +44,7 @@
         }
 
         echo $return;
-        $conn->__destruct();
+        $conn->free();
     }
 
 
