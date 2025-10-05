@@ -10,11 +10,7 @@ let estatDeLaPartida = {
 
 window.addEventListener("DOMContentLoaded", () => {
     window.partida = document.getElementById("partida"); // global
-
-    fetch('functions/getPreguntes.php?quantitat=10')
-        .then(res => res.json())
-        .then(data => renderPartida(data));
-
+    iniciJoc();
 });
 
 function renderitzarMarcador(){
@@ -30,7 +26,15 @@ function moureDivs(info){
 
 function actualitzarMarcador() {
     let marcador = document.getElementById("marcador");
-    marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
+    htmlString = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
+
+    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++) {
+    htmlString += `Pregunta  ${i} : <span class='badge text-bg-primary'> 
+                            ${(estatDeLaPartida.respostesUsuari[i] == undefined ? "O" : "X")}
+                            </span><br>` ;
+    }
+    
+    marcador.innerHTML = htmlString;
 
     // botons enviar i borrar
     if (estatDeLaPartida.contadorPreguntes == 10 && !estatDeLaPartida.botoRenderitzat){
@@ -39,17 +43,6 @@ function actualitzarMarcador() {
     } else if (estatDeLaPartida.contadorPreguntes == 1 && !estatDeLaPartida.botoBorrar){
         partida.innerHTML += `<button id="btnBorrar" class="btn btn-danger">Borrar partida</button>`;
         estatDeLaPartida.botoBorrar = true;
-    }
-
-    // marcar respostes seleccionades
-    let seleccio = document.getElementsByClassName("seleccionada");
-    for (let k = seleccio.length - 1; k >= 0; k--) seleccio[k].classList.remove("seleccionada");
-
-    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++){
-        let resposta = estatDeLaPartida.respostesUsuari[i];
-        if (resposta != undefined){
-            document.getElementsBy(`${resposta}`)?.classList.add("seleccionada");
-        } 
     }
 
     localStorage.setItem("partida", JSON.stringify(estatDeLaPartida));
@@ -93,8 +86,16 @@ function renderFinal(data){
 function iniciJoc(){
     partida.innerHTML = `<div>
                             <h1>Començar</h1>
+                            <button id="btnComencar" class="btn btn-danger">Començar Partida</button>
+                        </div>`;
 
-                        </div>`
+    document.addEventListener('click', function(e){
+        if (e.target.id.includes('btnComencar')){
+        fetch('functions/getPreguntes.php?quantitat=10')    
+        .then(res => res.json())
+        .then(data => renderTaulell(data));
+    }
+    });
 }
 
 function renderPartida(data){
@@ -121,6 +122,14 @@ function renderPartida(data){
         }
     }
     partida.innerHTML = htmlString;
+
+    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++) {
+        let resp = estatDeLaPartida.respostesUsuari[i];
+        if (resp) {
+            let boton = partida.querySelector(`button[preg="${i+1}"][resp="${resp}"]`);
+            if (boton) boton.classList.add('seleccionada');
+        }
+    }
 
     // listener principal de respostes
     partida.addEventListener('click', function(e) {
@@ -149,6 +158,12 @@ function renderPartida(data){
             // funcionalitat
             let valor_pregunta = boton.getAttribute('preg');
             let valor_resposta = boton.getAttribute('resp');
+
+            partida.querySelectorAll(`button[preg="${valor_pregunta}"]`).forEach(b => {
+                b.classList.remove('seleccionada');
+            });
+            boton.classList.add('seleccionada');
+
             marcarRespuesta(valor_pregunta, valor_resposta);
         }
     });
@@ -180,5 +195,15 @@ function renderTaulell(data){
             htmlString += `</div>`;
         }
     }
+
+    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++) {
+        let resp = estatDeLaPartida.respostesUsuari[i];
+        if (resp) {
+            let boton = partida.querySelector(`button[preg="${i+1}"][resp="${resp}"]`);
+            if (boton) boton.classList.add('seleccionada');
+        }
+    }
+
     partida.innerHTML = htmlString;
 }
+
