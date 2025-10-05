@@ -18,7 +18,7 @@
                                 r.ID_resposta,
                                 r.Resposta,
                                 r.Nom,
-                                r.Correcte,
+                                r.Correcte,  
                                 ROW_NUMBER() OVER (PARTITION BY r.ID_pregunta ORDER BY r.ID_resposta) AS rn
                             FROM respostes r
                         )

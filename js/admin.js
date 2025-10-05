@@ -3,15 +3,30 @@ Index
     AEL ('DOMContentLoaded')
 */
 
-function renderCRUD(data){
-    let print = document.getElementById(lista);
-    let htmlString = ''
+function fetchRender(){
+    fetch (`functions/consulta.php?action="read"`)
+        .then(response => response.json())
+        .then(data => render(data));
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
+/*function fetchRender(query, info){
+    //convertir la info en el json
+    fetch("functions/consulta.php", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        action: query,
 
-    fetch (`functions/dades/conn.php?action=read`)
-        .then(response => response.json())
-        .then(data => renderCRUD(data));
-    
+                    })
+                })
+}*/
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    fetchRender();
 } );
+
+function render(data){
+    let print = document.getElementsByClassName(menu);
+    print.innerHTML = "";
+    print.innerHTML = `${data}`;
+}
