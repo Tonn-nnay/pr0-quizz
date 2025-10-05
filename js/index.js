@@ -147,11 +147,13 @@ function marcarRespuesta(pregunta, resposta){
 window.marcarRespuesta = marcarRespuesta;
 
 function renderFinal(data){
+    marcador.innerHTML="";
+    partida.innerHTML = "";
     partida.innerHTML = `
         <div>
             <h2>Has fet ${data.respostes_correctes}/${data.respostes_totals} preguntes bé</h2>
-            <p>En ${data.temps_total}</p>
-            <button id="btnBorrar" class="btn btn-danger">Borrar partida</button>
+            <p>En ${data.temps_total} segons</p>
+            <button id="btnBorrar" class="btn btn-danger">Reinicia la partida</button>
         </div>`;
 }
 
