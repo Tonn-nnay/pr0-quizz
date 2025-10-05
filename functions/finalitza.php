@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-// Validaciones básicas
+////////////////////////////////////////////////////////////////////////////// Validacions
+
 if (!isset($_SESSION['respostes'])) {
     echo json_encode(['error' => "No s'ha rebut les respostes correctes"]);
     exit;
@@ -12,7 +13,8 @@ if (!isset($_SESSION['quantitat'])){
     exit;
 }
 
-// Leemos el JSON enviado por JS
+////////////////////////////////////////////////////////////////////////////// Recollida de dades
+
 $respostes_user = json_decode(file_get_contents('php://input'), true);
 
 if (!is_array($respostes_user) || !isset($respostes_user['respostesUsuari'])) {
@@ -20,11 +22,12 @@ if (!is_array($respostes_user) || !isset($respostes_user['respostesUsuari'])) {
     exit;
 }
 
-// Inicializaciones
 $respostes_correctes = 0;
 $respostes_totals = $_SESSION['quantitat'];
 $respostes_correctes_sessio = $_SESSION['respostes']; // array normal de IDs correctos
 $iteracio_valida = 0;
+
+////////////////////////////////////////////////////////////////////////////// Funcionalitat
 
 // Recorremos solo las respuestas que el usuario ha contestado
 foreach ($respostes_user['respostesUsuari'] as $id_pregunta => $id_resposta_usuari) {
@@ -43,14 +46,14 @@ foreach ($respostes_user['respostesUsuari'] as $id_pregunta => $id_resposta_usua
     }
 }
 
-// Construimos la respuesta JSON
+////////////////////////////////////////////////////////////////////////////// Preparacio de resposta i resposta
+
 $json = [
     'respostes_totals' => $respostes_totals,
     'respostes_correctes' => $respostes_correctes,
     'temps_total' => $respostes_user['tempsTotal'] ?? 0
 ];
 
-// Devolvemos JSON al frontend
 echo json_encode($json);
 ?>
 
