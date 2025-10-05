@@ -19,7 +19,7 @@ if (!is_array($respostes_user)){
     $return = '';
 
     foreach($respostes_user as $key => $value){
-        if($respostes_user[$key] === $_SESSION['respostes'][$key]){
+        if($respostes_user[$key] == $_SESSION['respostes'][$key]){
             $respostes_correctes ++;
         }
     }
@@ -27,6 +27,7 @@ if (!is_array($respostes_user)){
     $json = array();
     $json['respostes_totals'] = $respostes_totals;
     $json['respostes_correctes'] = $respostes_correctes;
+    $json['temps_total'] = $respostes_user['tempsTotal'];
 
     $json = json_encode($json);
     echo $json;
