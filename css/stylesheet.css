@@ -1,15 +1,125 @@
-img {
-    max-width: 300px;
+/* --- Tipografía y reset básico --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.hidden{
+body {
+    background-color: #fff; /* fondo neutro */
+    color: #111; /* texto principal negro suave */
+    line-height: 1.5;
+    padding: 1rem;
+}
+
+/* --- Imágenes --- */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+/* --- Divs de preguntas --- */
+.divPregunta {
+    background-color: #f8f8f8; /* gris muy suave */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.divPregunta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Botones --- */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin: 0.3rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Colores */
+button.btn-danger {
+    background-color: #c0392b; /* rojo primario */
+    color: #fff;
+}
+
+button.btn-danger:hover {
+    background-color: #a93226; /* rojo más oscuro al hover */
+}
+
+button.btn {
+    background-color: #333; /* negro suave */
+    color: #fff;
+}
+
+button.btn:hover {
+    background-color: #111; /* negro más intenso al hover */
+}
+
+/* Botón seleccionado */
+.seleccionada {
+    background-color: #e74c3c; /* rojo suave para selección */
+    color: #fff;
+}
+
+/* --- Ocultos / mostrados --- */
+.hidden {
     display: none;
 }
 
-.shown{
+.shown {
     display: inline-block;
 }
 
-.seleccionada {
-    background-color: green;
+/* --- Marcador --- */
+#marcador {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #eee;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+/* --- Botones de navegación dentro de preguntas --- */
+#btnDevantEnrrere {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+/* --- Responsive Mobile First --- */
+@media (min-width: 600px) {
+    .divPregunta {
+        padding: 1.5rem;
+    }
+
+    button {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    #marcador {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .divPregunta {
+        max-width: 700px;
+        margin: 1rem auto;
+    }
 }
