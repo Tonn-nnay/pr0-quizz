@@ -48,7 +48,7 @@ function actualitzarMarcador() {
     for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++){
         let resposta = estatDeLaPartida.respostesUsuari[i];
         if (resposta != undefined){
-            document.getElementById(`${i}_${resposta}`)?.classList.add("seleccionada");
+            document.getElementsBy(`${resposta}`)?.classList.add("seleccionada");
         } 
     }
 
@@ -80,6 +80,22 @@ function marcarRespuesta(pregunta, resposta) {
     actualitzarMarcador();
     }
 window.marcarRespuesta = marcarRespuesta;
+
+function renderFinal(data){
+    partida.innerHTML="";
+    partida.innerHTML=  `<div>
+                            <h2>Has fet ${data['respostes_correctes']}/${data['respostes_totals']} preguntes bé</h2>
+                            <p>En ${data['temps_total']}</p>
+                            <button id="btnBorrar" class="btn btn-danger">Borrar partida</button>
+                        </div>`;
+}
+
+function iniciJoc(){
+    partida.innerHTML = `<div>
+                            <h1>Començar</h1>
+
+                        </div>`
+}
 
 function renderPartida(data){
     renderitzarMarcador();
@@ -115,10 +131,12 @@ function renderPartida(data){
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     contadorPreguntes: estatDeLaPartida.contadorPreguntes,
-                    respostesUsuari: estatDeLaPartida.respostesUsuari
+                    respostesUsuari: estatDeLaPartida.respostesUsuari,
+                    tempsTotal: estatDeLaPartida.temps
                 })
             }).then(res => res.text())
-            .then(data => console.log("JSON ->", data));
+            //.then(data => console.log("JSON ->", data))
+            .then(data => renderFinal(data));
         } else if (e.target.id.includes('btnBorrar')){
             borrarPartida(data)
         } else if (e.target.id.includes('btnDevant')) {
@@ -128,11 +146,16 @@ function renderPartida(data){
             estatDeLaPartida.posicioData--;
             moureDivs(data);
         } else if (boton.classList.contains('btn')){
+            // funcionalitat
             let valor_pregunta = boton.getAttribute('preg');
             let valor_resposta = boton.getAttribute('resp');
             marcarRespuesta(valor_pregunta, valor_resposta);
         }
     });
+
+    window.setInterval(() => {
+        estatDeLaPartida.temps++;
+    }, 1000);
 }
 function renderTaulell(data){
     renderitzarMarcador();
@@ -159,7 +182,3 @@ function renderTaulell(data){
     }
     partida.innerHTML = htmlString;
 }
-
-window.setInterval(() => {
-    estatDeLaPartida.temps++;
-}, 1000);
