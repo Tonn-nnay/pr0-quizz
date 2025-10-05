@@ -93,20 +93,26 @@ function renderitzarMarcador(){
     marcador.innerHTML = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
 }
 
-function actualitzarMarcador(){
-    let marcador = document.getElementById("marcador");
+function actualitzarMarcador() {
+    const marcador = document.getElementById("marcador");
     if (!marcador) return;
 
-    let htmlString = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de 10</p>`;
-    for (let i = 0; i < estatDeLaPartida.respostesUsuari.length; i++){
-        htmlString += `Pregunta ${i} : <span class='badge text-bg-primary'>${estatDeLaPartida.respostesUsuari[i] == undefined ? "O" : "X"}</span><br>`;
-    }
+    let htmlString = `<p>Preguntes respostes: ${estatDeLaPartida.contadorPreguntes} de ${ultimsDades.length}</p>`;
+
+    // Recorremos solo las preguntas que existen en la partida
+    ultimsDades.forEach((pregunta) => {
+        // pregunta.id es el id real de la pregunta
+        const resp = estatDeLaPartida.respostesUsuari[pregunta.id];
+        htmlString += `Pregunta ${pregunta.id} : <span class='badge text-bg-primary'>${resp !== undefined ? "X" : "O"}</span><br>`;
+    });
+
     marcador.innerHTML = htmlString;
 
-    if (estatDeLaPartida.contadorPreguntes === 10 && !estatDeLaPartida.botoRenderitzat){
+    // Botones enviar y borrar
+    if (estatDeLaPartida.contadorPreguntes === ultimsDades.length && !estatDeLaPartida.botoRenderitzat) {
         partida.innerHTML += `<button id="btnEnviar" class="btn btn-danger">Enviar resposta</button>`;
         estatDeLaPartida.botoRenderitzat = true;
-    } else if (estatDeLaPartida.contadorPreguntes === 1 && !estatDeLaPartida.botoBorrar){
+    } else if (estatDeLaPartida.contadorPreguntes === 1 && !estatDeLaPartida.botoBorrar) {
         partida.innerHTML += `<button id="btnBorrar" class="btn btn-danger">Borrar partida</button>`;
         estatDeLaPartida.botoBorrar = true;
     }
